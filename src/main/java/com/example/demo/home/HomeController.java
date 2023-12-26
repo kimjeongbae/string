@@ -46,10 +46,30 @@ public class HomeController {
         boolean isRemove = personList.removeIf(person -> person.getId() == id);
 
         if(!isRemove){
-            return
+                return id+"번 사람이 삭제 되었습니다";
         }
-            return
 
+        return id+"번 사람이 존재하지 않습니다.";
+    }
+
+    @GetMapping("/home/modifyPerson")
+    @ResponseBody
+    public String modifyPerson(@RequestParam("id") int id,@RequestParam(value = "name") String name, @RequestParam(value = "age") int age) {
+
+        Person modifyPerson = null;
+
+        for (Person person : personList){
+            if(person.getId() == id){
+                modifyPerson = person;
+            }
+        }
+        if(modifyPerson == null){
+            return id+"번 사람이 존재하지 않습니다" ;
+        }
+
+        person.setName(name);
+        person.setAge(age);
+        return id+"번 사람이 수정 되었습니다.";
     }
 
 
